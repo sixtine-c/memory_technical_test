@@ -10,3 +10,15 @@
 // Your CSS partials
 @import "components/index";
 @import "pages/index";
+
+
+h1 {
+  font-size: 30px;
+  font-weight: bold;
+  margin: 0;
+  color: rgb(16, 42, 66);
+}
+
+.container {
+  margin-top: 30px;
+}

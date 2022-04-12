@@ -1,0 +1,36 @@
+.form {
+  margin-top: 40px;
+  display: flex;
+}
+.dropdown {
+  margin-left: 10px;
+}
+.cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 16px;
+  height: 150px;
+  margin-top: 40px;
+}
+
+.card-category {
+  border-color: rgb(16, 42, 66);
+  border: solid;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.card-title {
+  margin-top: 10px;
+  color: rgb(16, 42, 66);
+}
+.card-figures {
+  flex-grow: 1;
+  font-size: 21px;
+}
+
+.revenue-per-month {
+  margin-top: 40px;
+}

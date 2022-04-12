@@ -4,4 +4,6 @@ class Customer < ApplicationRecord
 
   validates :customer_reference, presence: true, uniqueness: true
   validates :country, presence: true
+
+  COUNTRIES = ['France', 'United Kingdom']
 end

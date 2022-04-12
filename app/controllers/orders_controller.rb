@@ -1,26 +1,20 @@
 class OrdersController < ApplicationController
   def dashboard
 
-    # def total_revenues
-    # @orders = Customer.includes(:orders).where(country: 'United Kingdom').map { |customer| customer.orders }.flatten
-    # @order_products = []
-    # @orders.each do |order|
-    #   @order_product = Order.includes(:order_products).where(id: order.id).map { |o| o.order_products }.flatten
-    #   @order_products << @order_product
-    # end
+    @country =  params["country"]
 
     #calculate total revenues
-    @order_products = Customer.includes(:order_products).where(country: 'United Kingdom').map { |customer| customer.order_products }.flatten
-    @total_revenue = 0
-    @order_products.each do |item|
-      @total_revenue += item.quantity * item.unit_price
-    end
+    # @order_products = Customer.includes(:order_products).where(country: 'United Kingdom').map { |customer| customer.order_products }.flatten
+    # @total_revenue = 0
+    # @order_products.each do |item|
+    #   @total_revenue += item.quantity * item.unit_price
+    # end
 
-    #calculate number of customers.
-    @number_of_customers = Customer.where(country: "United Kingdom").count
+    # #calculate number of customers.
+    # @number_of_customers = Customer.where(country: "United Kingdom").count
 
-    #calculate average revenue per order
-    @average_revenue = @total_revenue / Customer.includes(:orders).where(country: 'United Kingdom').map { |customer| customer.orders }.flatten.count
+    # #calculate average revenue per order
+    # @average_revenue = @total_revenue / Customer.includes(:orders).where(country: 'United Kingdom').map { |customer| customer.orders }.flatten.count
 
     #
     # @customers = Customer.includes(country: 'United Kingdom')

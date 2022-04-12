@@ -1,4 +1,50 @@
-<h1> hello </h1>
-<%= @total_revenue %>
-<%= @number_of_customers %>
-<%= @average_revenue %>
+<div class="dashboard-container">
+  <h1> Summary </h1>
+
+  <div class="form">
+  <h5> Country: </h5>
+  <div class="dropdown">
+    <%= simple_form_for(:country) do |f| %>
+      <%= f.select :country, collection: Customer::COUNTRIES %>
+    <% end %>
+  </div>
+  </div>
+
+  <div class="cards">
+    <div class="card-category">
+      <div class="card-title">
+        <h4>Total revenues</h4>
+        <hr>
+      </div>
+      <div class="card-figures">
+         10000
+      </div>
+    </div>
+
+    <div class="card-category">
+      <div class="card-title">
+        <h4>Avr. revenue / order</h4>
+        <hr>
+      </div>
+      <div class="card-figures">
+         1000
+      </div>
+    </div>
+
+    <div class="card-category">
+      <div class="card-title">
+        <h4>Customers</h4>
+        <hr>
+      </div>
+      <div class="card-figures">
+         100
+      </div>
+    </div>
+  </div>
+
+  <div class="revenue-per-month">
+    <h1> Revenue per month </h1>
+
+  </div>
+
+</div>
