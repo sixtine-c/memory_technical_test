@@ -1,20 +1,21 @@
 class OrdersController < ApplicationController
   def dashboard
 
-    @country =  params["country"]
+    @country = params["country"]
 
     #calculate total revenues
     # @order_products = Customer.includes(:order_products).where(country: 'United Kingdom').map { |customer| customer.order_products }.flatten
-    # @total_revenue = 0
-    # @order_products.each do |item|
-    #   @total_revenue += item.quantity * item.unit_price
-    # end
+
 
     # #calculate number of customers.
     # @number_of_customers = Customer.where(country: "United Kingdom").count
 
     # #calculate average revenue per order
     # @average_revenue = @total_revenue / Customer.includes(:orders).where(country: 'United Kingdom').map { |customer| customer.orders }.flatten.count
+
+    #calculate revenues per month
+    @orders = Customer.includes(:orders).where(country: 'United Kingdom').map { |customer| customer.orders }.flatten
+
 
     #
     # @customers = Customer.includes(country: 'United Kingdom')
@@ -41,6 +42,13 @@ class OrdersController < ApplicationController
     # end
   end
 
-  # private
+  private
+
+  # def total_revenues
+  #   @total_revenue = 0
+  #   @order_products.each do |item|
+  #     @total_revenue += item.quantity * item.unit_price
+  #   end
+  # end
 
 end
