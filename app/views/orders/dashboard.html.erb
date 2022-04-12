@@ -1,15 +1,15 @@
 <div class="dashboard-container">
-  <h1> Summary </h1>
 
   <div class="form">
-  <h5> Country: </h5>
-  <div class="dropdown">
-    <%= simple_form_for(:country) do |f| %>
-      <%= f.select :country, collection: Customer::COUNTRIES %>
-    <% end %>
-  </div>
+    <h5> Country: </h5>
+    <div class="dropdown">
+      <%= simple_form_for(:country) do |f| %>
+        <%= f.select :country, collection: Customer::COUNTRIES %>
+      <% end %>
+    </div>
   </div>
 
+  <h1> Summary </h1>
   <div class="cards">
     <div class="card-category">
       <div class="card-title">
@@ -44,7 +44,9 @@
 
   <div class="revenue-per-month">
     <h1> Revenue per month </h1>
-    <%= column_chart @orders.group_by_month{ |u| u.date }.to_h { |k, v| [k, v.count] } %>
+    <div class="chart">
+      <%= column_chart @orders.group_by_month{ |order| order.date }.to_h { |k, id| [k, id.count] } %>
+    </div>
 
   </div>
 
