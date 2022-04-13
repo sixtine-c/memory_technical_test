@@ -2,10 +2,19 @@
   margin-top: 40px;
   display: flex;
   margin-bottom: 40px;
+  h5 {
+    margin-bottom: Opx;
+    padding-top: 10px;
+  }
 }
-// .dropdown {
-//   margin-left: 10px;
-// }
+.dropdown {
+  margin-left: 20px;;
+}
+.country {
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
 .cards {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;

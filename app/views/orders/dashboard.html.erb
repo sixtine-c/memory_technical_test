@@ -3,7 +3,7 @@
     <h5> Country: </h5>
     <div class="dropdown">
       <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-        All
+        Select your country
       </button>
       <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
         <% @countries.each do |country| %>
@@ -11,6 +11,14 @@
         <% end %>
       </ul>
     </div>
+  </div>
+
+  <div class="country">
+    <% if @country.nil? || @country == 'All'  %>
+      <h1> Global</h1>
+    <% else %>
+    <h1> <%= @country %> </h1>
+    <% end  %>
   </div>
 
   <h1> Summary </h1>
@@ -21,7 +29,7 @@
         <hr>
       </div>
       <div class="card-figures">
-         <%= @total_revenues %>
+         <%= @total_revenues %> M€
       </div>
     </div>
 
@@ -31,7 +39,7 @@
         <hr>
       </div>
       <div class="card-figures">
-         <%= @average_revenue %>
+         <%= @average_revenue %> €
       </div>
     </div>
 
@@ -49,7 +57,12 @@
   <div class="revenue-per-month">
     <h1> Revenue per month </h1>
     <div class="chart">
-      <%= column_chart @orders.group_by_month{ |order| order.date }.map{|k,o| [k, o.map{|item| OrderProduct.where(order_id: item.id).sum{|i|i.quantity*i.unit_price}}.reduce(:+)] } %>
+      <%= column_chart @orders.group_by_month{ |order| order.date }
+      .map{ |k,o| [k, o.map{|item| Order.includes(:order_products)
+      .where(id: item.id)
+      .map{|order| order.order_products}.flatten
+      .sum{|order| order.quantity * order.unit_price}}
+      .reduce(:+)] } %>
 
     </div>
 
