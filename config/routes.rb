@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root to: 'pages#home'
+  root to: 'orders#dashboard'
   resources :orders do
     collection do
       get 'dashboard'

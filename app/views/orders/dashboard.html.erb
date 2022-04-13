@@ -1,11 +1,15 @@
 <div class="dashboard-container">
-
   <div class="form">
     <h5> Country: </h5>
     <div class="dropdown">
-      <%= simple_form_for(:country) do |f| %>
-        <%= f.select :country, collection: Customer::COUNTRIES %>
-      <% end %>
+      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+        All
+      </button>
+      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+        <% @countries.each do |country| %>
+        <%= link_to country, root_path(query: country), class: "dropdown-item" %>
+        <% end %>
+      </ul>
     </div>
   </div>
 
@@ -17,7 +21,7 @@
         <hr>
       </div>
       <div class="card-figures">
-         10000
+         <%= @total_revenues %>
       </div>
     </div>
 
@@ -27,7 +31,7 @@
         <hr>
       </div>
       <div class="card-figures">
-         1000
+         <%= @average_revenue %>
       </div>
     </div>
 
@@ -37,7 +41,7 @@
         <hr>
       </div>
       <div class="card-figures">
-         100
+         <%= @number_of_customers %>
       </div>
     </div>
   </div>
@@ -45,7 +49,8 @@
   <div class="revenue-per-month">
     <h1> Revenue per month </h1>
     <div class="chart">
-      <%= column_chart @orders.group_by_month{ |order| order.date }.to_h { |k, id| [k, id.count] } %>
+      <%= column_chart @orders.group_by_month{ |order| order.date }.map{|k,o| [k, o.map{|item| OrderProduct.where(order_id: item.id).sum{|i|i.quantity*i.unit_price}}.reduce(:+)] } %>
+
     </div>
 
   </div>
