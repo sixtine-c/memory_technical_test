@@ -31,8 +31,16 @@
 ## App result
 <img src="/app/assets/images/screenshot-app.png" height="400" />
 
+## Tests
+* Run Rspec:
+   ```bash
+    rails spec
+  ```
+
 ## Main limits today
 
 * Work on the performance of the seed & the app, as it's really slow to load (for All countries mostly)
 
 * I did not push it on Heroku due to this performance limit
+
+* Go further on tests
