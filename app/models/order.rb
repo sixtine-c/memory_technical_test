@@ -4,4 +4,8 @@ class Order < ApplicationRecord
   validates :order_reference, presence: true, uniqueness: true
   validates :date, presence: true
   validates :customer_id, presence: true
+
+  def order_revenue
+   order_products.sum{|i|i.revenues}
+  end
 end

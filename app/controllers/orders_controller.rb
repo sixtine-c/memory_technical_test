@@ -32,7 +32,7 @@ class OrdersController < ApplicationController
 
   def calculate_total_revenues
     total_revenue = 0
-    @order_products.each {|item| total_revenue += item.quantity * item.unit_price }
+    @order_products.each {|item| total_revenue += item.revenues }
     total_revenue
   end
 end

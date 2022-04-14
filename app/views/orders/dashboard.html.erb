@@ -58,11 +58,9 @@
     <h1> Revenue per month </h1>
     <div class="chart">
       <%= column_chart @orders.group_by_month{ |order| order.date }
-      .map{ |k,o| [k, o.map{|item| Order.includes(:order_products)
-      .where(id: item.id)
-      .map{|order| order.order_products}.flatten
-      .sum{|order| order.quantity * order.unit_price}}
-      .reduce(:+)] } %>
+      .map{|k, o| [k, o.map{ |i| i.order_revenue}.reduce(:+)]} %>
+
+
 
     </div>
 
