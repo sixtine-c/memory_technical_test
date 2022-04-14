@@ -6,6 +6,6 @@ class Order < ApplicationRecord
   validates :customer_id, presence: true
 
   def order_revenue
-   order_products.sum{|i|i.revenues}
+    order_products.sum(&:revenues)
   end
 end

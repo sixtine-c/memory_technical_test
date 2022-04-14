@@ -4,11 +4,11 @@ class OrdersController < ApplicationController
     @country = params[:query]
 
     if @country.nil? || @country == 'All'
-      @orders = Customer.includes(:orders).map { |customer| customer.orders }.flatten
-      @order_products = Customer.includes(:order_products).map { |customer| customer.order_products }.flatten
+      @orders = Customer.includes(:orders).map(&:orders).flatten
+      @order_products = Customer.includes(:order_products).map(&:order_products).flatten
     else
-      @orders = Customer.includes(:orders).where(country: @country).map { |customer| customer.orders }.flatten
-      @order_products = Customer.includes(:order_products).where(country: @country).map { |customer| customer.order_products }.flatten
+      @orders = Customer.includes(:orders).where(country: @country).map(&:orders).flatten
+      @order_products = Customer.includes(:order_products).where(country: @country).map(&:order_products).flatten
     end
 
     @number_of_customers = calculate_number_of_customers.round(0)
@@ -32,7 +32,7 @@ class OrdersController < ApplicationController
 
   def calculate_total_revenues
     total_revenue = 0
-    @order_products.each {|item| total_revenue += item.revenues }
+    @order_products.each { |item| total_revenue += item.revenues }
     total_revenue
   end
 end
