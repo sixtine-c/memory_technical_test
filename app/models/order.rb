@@ -8,4 +8,9 @@ class Order < ApplicationRecord
   def order_revenue
     order_products.sum(&:revenues)
   end
+
+   scope :month, lambda { |month| where('extract(month from date) = ?', month) }
+   scope :year, lambda { |year| where('extract(year from date) = ?', year) }
+  # scope :year_month, lambda { |year, month| where('extract(year from date) = ? AND extract(month from date) = ?', year, month) }
+
 end

@@ -58,8 +58,7 @@
     <h1> Revenue per month </h1>
     <div class="chart">
       <%= column_chart @orders.group_by_month{ |order| order.date }
-      .map{|k, o| [k, o.map{ |i| i.order_revenue}.reduce(:+)]} %>
-
+      .map{|k, o| [k, revenue_month(k)]} %>
 
 
     </div>

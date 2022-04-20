@@ -4,25 +4,24 @@ class OrdersController < ApplicationController
     @country = params[:query]
 
     if @country.nil? || @country == 'All'
+      @customers = Customer.all
       @orders = Customer.includes(:orders).map(&:orders).flatten
-      @order_products = Customer.includes(:order_products).map(&:order_products).flatten
     else
+      @customers = Customer.where(country: @country)
       @orders = Customer.includes(:orders).where(country: @country).map(&:orders).flatten
-      @order_products = Customer.includes(:order_products).where(country: @country).map(&:order_products).flatten
     end
 
     @number_of_customers = calculate_number_of_customers.round(0)
     @total_revenues = calculate_total_revenues.fdiv(1_000_000).round(1)
     @average_revenue = (@total_revenues * 1_000_000 / @orders.count).round(1)
-  end
 
+
+  end
   private
 
   def create_country_list
     countries = ['All']
-    Customer.all.each do |customer|
-      countries << customer.country unless countries.include?(customer.country)
-    end
+    Customer.select(:country).distinct.order(:country).each{|c|countries<<c.country}
     countries
   end
 
@@ -31,8 +30,14 @@ class OrdersController < ApplicationController
   end
 
   def calculate_total_revenues
-    total_revenue = 0
-    @order_products.each { |item| total_revenue += item.revenues }
+    if @country.nil? || @country == 'All'
+      total_revenue = OrderProduct.sum('quantity * unit_price')
+    else
+      total_revenue = Customer.includes(:order_products).where(country: @country).sum('quantity * unit_price')
+    end
     total_revenue
   end
+
+
+
 end
